@@ -8,4 +8,10 @@ require ::File.expand_path('../config/environment',  __FILE__)
 require ::File.expand_path('../lib/chrome_frame', __FILE__)
 
 use Rack::ChromeFrame, :minimum => 8
+use Rack::Cors do |config|
+  config.allow do |allow|
+    allow.origins '*'
+    allow.resource '/status_messages/remote_show*', :headers => :any
+  end
+end
 run Diaspora::Application

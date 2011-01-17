@@ -14,8 +14,10 @@ javascripts:
     - public/javascripts/vendor/jquery.infinitescroll.min.js
     - public/javascripts/vendor/timeago.js
     - public/javascripts/vendor/fileuploader.js
+    - public/javascripts/cors.js
     - public/javascripts/view.js
     - public/javascripts/stream.js
+    - public/javascripts/application.js
     - public/javascripts/application.js
   
   mobile:

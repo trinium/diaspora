@@ -34,6 +34,7 @@ Devise.setup do |config|
 
   # Tell if authentication through HTTP Basic Auth is enabled. True by default.
   # config.http_authenticatable = true
+  #config.http_authenticatable_on_xhr = false 
 
   # The realm used in Http Basic Authentication
   # config.http_authentication_realm = "Application"

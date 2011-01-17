@@ -8,6 +8,7 @@ gem 'chef', :require => false
 
 gem 'nokogiri', '1.4.3.1'
 
+gem 'rack-cors',:require => 'rack/cors' 
 #Security
 gem 'devise', '1.1.3'
 gem 'devise_invitable','0.3.5'

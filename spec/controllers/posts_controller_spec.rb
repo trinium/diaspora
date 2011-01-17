@@ -25,4 +25,5 @@ describe PostsController do
       response.status = 302
     end
   end
+
 end

@@ -74,7 +74,7 @@ module Diaspora
       end
 
       def disconnect(bad_contact)
-        Rails.logger.info("event=disconnect user=#{diaspora_handle} target=#{bad_contact.diaspora_handle}")
+        Rails.logger.info("event=disconnect user=#{self.person.diaspora_handle} target=#{bad_contact.diaspora_handle}")
         retraction = Retraction.for(self)
         retraction.subscribers = [bad_contact]#HAX
         Postzord::Dispatch.new(self, retraction).post

@@ -3,6 +3,7 @@
 #   the COPYRIGHT file.
 
 Diaspora::Application.routes.draw do
+  match '/status_messages/remote_show' => 'status_messages#remote_show', :via => :get
   resources :status_messages, :only => [:create, :destroy, :show]
   resources :comments,        :only => [:create]
   resources :requests,        :only => [:destroy, :create]

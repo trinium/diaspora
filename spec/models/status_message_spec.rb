@@ -124,4 +124,8 @@ describe StatusMessage do
       @status_message.public_message(140, "/p/#{@status_message.id}").should include "/p/#{@status_message.id}"
     end
   end
+
+  describe 'to_json' do
+    pending 'need to test the usual stuff, message, photos, messages'
+  end
 end

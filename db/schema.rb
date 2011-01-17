@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110105051803) do
+ActiveRecord::Schema.define(:version => 20110115025656) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id"
@@ -55,10 +55,12 @@ ActiveRecord::Schema.define(:version => 20110105051803) do
   create_table "contacts", :force => true do |t|
     t.integer  "user_id"
     t.integer  "person_id"
-    t.boolean  "pending",    :default => true
+    t.boolean  "pending",      :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.string   "local_token"
+    t.string   "remote_token"
   end
 
   add_index "contacts", ["mongo_id"], :name => "index_contacts_on_mongo_id"

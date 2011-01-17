@@ -22,6 +22,17 @@ class StatusMessage < Post
     get_youtube_title message
   end
 
+ def to_json
+    hash = {:message => self.message}
+    if photos
+      photos.each{ |p| hash[:photos] << p.to_json}
+    end
+    if comments
+      
+    end
+    hash.to_json
+  end
+
   def to_activity
     <<-XML
   <entry>
