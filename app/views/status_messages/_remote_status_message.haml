@@ -3,21 +3,23 @@
 -#   the COPYRIGHT file.
 
 :javascript
-  var request = createCORSRequest("get", "#{person.url}status_messages/remote_show.json?token=123&author_handle=#{person.diaspora_handle}&post_id=#{post.guid}&requester_handle=#{current_user.diaspora_handle}"); 
+  var request#{post.id} = createCORSRequest("get", "#{person.url}status_messages/remote_show/?token=123&author_handle=#{person.diaspora_handle}&post_id=#{post.guid}&requester_handle=#{current_user.diaspora_handle}"); 
   //var request = createCORSRequest("get", "http://localhost:3000//status_messages/remote_show.json?token=123&author_handle=ilya@localhost&post_id=ca8a2250ed8b0542&requester_handle=josh@localhost"); 
  
-  alert("#{person.url}status_messages/remote_show.json?token=123&author_handle=#{person.diaspora_handle}&post_id=#{post.guid}&requester_handle=#{current_user.diaspora_handle}");
-  if (request){
-      request.onload = function(){
+  //alert("#{person.url}status_messages/remote_show/?token=123&author_handle=#{person.diaspora_handle}&post_id=#{post.guid}&requester_handle=#{current_user.diaspora_handle}");
+  if (request#{post.id}){
+    request#{post.id}.onload = function(){
           //do something with request.responseText
-          alert(request.responseJSON);
-      };
-      request.setRequestHeader('Accept', 'application/json');
-      request.send();
+          //alert( request.responseText  );
+          
+          alert(JSON.parse(request#{post.id}.responseText).message);
+          $('.remote_status_message_#{post.id}').append(request#{post.id}.responseText)
+      }
+      request#{post.id}.send();
   }
 
 
-.remote_status_message
+%div{ :class => "remote_status_message_#{post.id}"}
 //= markdownify(post.message, :youtube_maps => post[:youtube_titles])
 
 - if photos.count > 0

@@ -28,10 +28,10 @@
         %span.aspect_badges
           = aspect_badges(aspects_with_post(all_aspects, post))
     
-    //- unless current_user.person == person
-    = render 'status_messages/remote_status_message', :post => post, :person => person, :photos => photos 
-    //- else
-    // = render 'status_messages/status_message', :post => post, :photos => photos 
+    - unless current_user.person == person
+      = render 'status_messages/remote_status_message', :post => post, :person => person, :photos => photos 
+    - else
+      = render 'status_messages/status_message', :post => post, :photos => photos 
     .info
       %span.time= link_to(how_long_ago(post), status_message_path(post))
       = link_to t('comments.new_comment.comment').downcase, '#', :class => 'focus_comment_textarea'

@@ -9,8 +9,8 @@ class StatusMessagesController < ApplicationController
   skip_before_filter :set_invites, :only => :remote_show
   skip_before_filter :set_locale, :only => :remote_show
 
-  respond_to :html, :except => :remote_show
-  respond_to :json, :only => [ :show, :remote_show ] 
+  respond_to :html
+  respond_to :json, :only => [ :show ] 
 
   def create
     params[:status_message][:aspect_ids] = params[:aspect_ids]
@@ -94,14 +94,11 @@ class StatusMessagesController < ApplicationController
     puts @requester.inspect
     @contact = Contact.where(:user_id => @author.owner_id, :person_id => @requester.id).first
     puts @contact.inspect
-    
     if @contact #&& params[:token] # @contact.local_token == params[:token]
       @status_message = StatusMessage.find_by_guid(params[:post_id])
       if @contact.aspects.joins(:post_visibilities).where(:post_visibilities => {:post_id => @status_message.id}).first
-        respond_to do |format|
-          format.json { puts @status_message.to_json; render :json => @status_message.to_json,
-            :status => 200 }
-        end
+        puts @status_message.to_json;
+        render :text => @status_message.to_json, :status => 200 
       
       else
         render :nothing => true, :status => 404
