@@ -14,11 +14,10 @@
     #publisher_text
       = t('.whats_on_your_mind')
 
-    = status.text_area :message
+    = status.text_area :message, :rows => 2
 
     - for aspect_id in @aspect_ids
       = hidden_field_tag 'aspect_ids[]', aspect_id.to_s
-
 
     %fieldset.hidden{:style => 'text-align:right;'}
       %fieldset{:data => {:role => 'controlgroup', :type=>'horizontal'}}
