@@ -27,7 +27,7 @@ en:
   search: "Search"
   new_notifications: "%{count} new notifications"
   no_new_notifications: "no new notifications"
-  _home: "Home"
+  _all: "All"
   _more: "More"
   _comments: "Comments"
   _comment: "Comment"

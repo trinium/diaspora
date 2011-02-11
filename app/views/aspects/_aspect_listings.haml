@@ -4,15 +4,15 @@
 
 = hidden_field_tag :contact_json, @selected_contacts.map{|contact| contact.person}.to_json
 
-%h4
-  .right
-    = link_to t('contacts', :count => contacts.count), aspects_manage_path, :title => t('aspects.manage.manage_aspects')
-
-  = aspects.count
-  - if aspects.count == 1
-    = t('_aspect')
-  - else
-    = t('_aspects')
+/%h4
+/  .right
+/    = link_to t('contacts', :count => contacts.count), aspects_manage_path, :title => t('aspects.manage.manage_aspects')
+/
+/  = aspects.count
+/  - if aspects.count == 1
+/    = t('_aspect')
+/  - else
+/    = t('_aspects')
 
 %ul
   - for aspect in aspects

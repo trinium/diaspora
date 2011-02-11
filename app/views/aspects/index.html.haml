@@ -7,7 +7,25 @@
   = include_javascripts :home
 
 
-.span-15.append-2
+%ul#aspect_nav
+  %li{:class => ('selected' if @aspect == :all)}
+    = link_to t('_all'), aspects_path, :class => 'home_selector'
+
+  - for aspect in @all_aspects
+    %li{:data=>{:guid=>aspect.id}, :class => ("selected" if @object_aspect_ids.include?(aspect.id))}
+      .right.edit
+        =link_to 'edit', edit_aspect_path(aspect), :rel => 'facebox'
+      = link_for_aspect(aspect, :class => 'aspect_selector')
+
+  %li.dimmer
+    = link_to '+ add a new aspect', '#add_aspect_pane', :class => "add_aspect_button", :rel => 'facebox'
+
+.facebox_content
+  #add_aspect_pane
+    = render "aspects/new_aspect"
+
+
+.span-15.prepend-5
   = render 'aspects/no_contacts_message', :aspect => @aspect, :contact_count => @contacts.count
 
   #aspect_stream_container
@@ -17,14 +35,7 @@
       :posts => @posts,
       :fakes => @fakes
 
-.span-7.last
-  #home_user_badge
-    = owner_image_link
-    %h3{:style => "position:relative;"}
-      = current_user.name
-      .description
-        = link_to current_user.diaspora_handle, person_path(current_user.person)
-
+.span-4.last
   - if @notification_count > 0 || @request_count > 0
     #new_requests
       - if @request_count > 0
@@ -44,4 +55,3 @@
   .section
     %h4= t('shared.invitations.invite_your_friends')
     = render "shared/invitations", :invites => @invites
-
