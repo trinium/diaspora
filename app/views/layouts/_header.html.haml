@@ -4,9 +4,17 @@
 
 .container{:style => "position:relative;"}
   - if current_user
-    = link_to image_tag('logo_small.png', :height => "16px", :width => "161px", :class => "diaspora_header_logo"), root_path
+    = link_to image_tag('logo_small_no_alpha.png', :height => 16, :width => 98, :class => "diaspora_header_logo"), root_path
   - else
-    = link_to image_tag('logo_large.png', :height => "32px", :width => "321px", :class => "diaspora_header_logo"), root_path
+    = link_to image_tag('logo_large.png', :height => 32, :width => 321, :class => "diaspora_header_logo"), root_path
+
+  - if @notification_count
+    #notification_badge
+      = link_to "", notifications_path, :title => new_notification_text(@notification_count)
+      = image_tag 'icons/mail_grey.png'
+      #notification_badge_number{:class => ("hidden" if @notification_count == 0)}
+        = @notification_count
+
 
   - if !current_user
     .right
@@ -20,13 +28,6 @@
     #global_search
       = form_tag(people_path, :method => 'get', :id => "global_search_form") do
         = text_field_tag 'q', nil, :placeholder => t('search'), :type => 'search', :results => 5
-
-    - if @notification_count
-      #notification_badge
-        = link_to "", notifications_path, :title => new_notification_text(@notification_count)
-        = image_tag 'icons/mail_grey.png'
-        #notification_badge_number{:class => ("hidden" if @notification_count == 0)}
-          = @notification_count
 
     %ul#user_menu
       .right

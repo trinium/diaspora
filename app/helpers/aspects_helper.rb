@@ -53,6 +53,6 @@ module AspectsHelper
     else
       str += t('_aspects').downcase
     end
-    ("<span>#{str}</span>").html_safe
+      str
   end
 end

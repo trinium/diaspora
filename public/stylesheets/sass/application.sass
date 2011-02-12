@@ -8,8 +8,8 @@ $blue: #3F8FBA
 body
   :padding 2em
   :margin 0
-    :top 25px
-  :background-color rgb(250,250,250)
+    :top 45px
+  :background-color rgb(253,253,253)
 a
   :color #107FC9
   :color $blue
@@ -122,9 +122,6 @@ header
     :color #111
     :color rgba(15,15,15,0.90)
 
-  :background -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(25,25,25,0.85)), to(rgba(20,20,20,1)))
-  :background -moz-linear-gradient(top, rgba(35,35,35,0.85), rgba(20,20,20,0.98))
-
   :-webkit-box-shadow 0 1px 3px #111
   :-moz-box-shadow 0 1px 2px #111
   :box-shadow 0 1px 3px #222
@@ -138,7 +135,7 @@ header
   :width 100%
   :top 0
   :left 0
-  :height 32px
+  :height 31px
 
   a
     :color #CCC
@@ -237,7 +234,7 @@ header
   :position relative
   :top 4px
   :margin
-    :right 46px
+    :right 63px
 
 .stream
   .stream_element
@@ -544,7 +541,8 @@ ul.show_comments
     :top 0.5em
   :padding 0
   :background
-    :color #F0F4F5
+    //:color #F0F4F5
+    :color lighten($blue, 48%)
 
   textarea
     :width 100%
@@ -853,8 +851,6 @@ label
       :top 6px
     :margin
       :bottom -2px
-    input[type='submit']
-      :width 75px
 
     input
       :display inline
@@ -871,26 +867,6 @@ label
   .content_creation
     :margin
       :top 1em
-
-  #click_to_share
-    :position relative
-    :padding 1em
-      :top 0
-    :margin
-      :bottom -16px
-
-    span
-      :margin
-        :left 12px
-      :font
-        :weight bold
-      :color #444
-
-    img
-      :display inline
-      :position absolute
-      :top 0
-      :left 0px
 
   #file-upload
     :z-index 10
@@ -1040,9 +1016,12 @@ ul#aspect_nav
   :margin
     :bottom 0
 
+  :width 159px
+
   a:hover
     :text
       :decoration none
+
 
   > li
     .edit
@@ -1061,13 +1040,20 @@ ul#aspect_nav
       a
         :color #ccc
 
+    &:first-child
+      :margin
+        :bottom 1em
+      :border
+        :bottom 1px solid #ddd
+
+
   > li
     :position relative
     :display block
-    :padding 6px 8px
+    :padding 4px 8px
     :margin 0
       :right 2px
-    :width 182px
+    :width 143px
 
     :-webkit-border-radius 3px 0 0 3px
     :-moz-border-radius 3px 0 0 3px
@@ -1108,14 +1094,14 @@ ul#aspect_nav
       :font
         :weight bold
       :background
-        :color #D5E5EE
-      :border 1px solid #9CC4DA
-        :bottom 1px solid #8CB0C4
+        :color lighten($blue, 40%) 
+      :border 1px solid lighten($blue, 25%) 
+        :bottom 1px solid lighten($blue, 15%)
         :right none
 
       :padding
-        :top 5px
-        :bottom 5px
+        :top 3px
+        :bottom 3px
 
       .aspect_selector_edit
         :margin
@@ -1125,9 +1111,14 @@ ul#aspect_nav
           :color #999
 
       &:hover
-        :color #888
+        :background
+          :color lighten($blue, 32%) 
+        a
+          :text-shadow 0 1px 0 lighten($blue, 10%)
+
+
       a
-        :text-shadow 0 1px 0 #9CC4DA
+        :text-shadow 0 1px 0 lighten($blue, 15%)
         :color #333
 
   .new_requests
@@ -1143,16 +1134,12 @@ ul#aspect_nav
 
     input
       :display inline
-      :background-color #888
+      :background-color #777
       :border
-        :top 1px solid #111
+        :bottom 1px solid #333
 
       :font
         :size 12px
-
-      :-webkit-box-shadow 0 1px #666
-      :-moz-box-shadow 0 1px #666
-      :box-shadow 0 1px #666
 
       :border 1px solid #000
 
@@ -1394,8 +1381,6 @@ ul#settings_nav
     > li
       :position relative
       :padding 8px 0
-      :border
-        :bottom 1px solid #ddd
 
 .floating.empty_message
   :margin
@@ -1667,10 +1652,10 @@ h3 span.current_gs_step
         :color #22AAE0
 
 #notification_badge
-  :position relative
-  :top 5px
+  :position absolute
+  :top 6px
   :display inline
-  :margin 0 1em
+  :left 120px
   :font
     :weight bold
     :size smaller
@@ -2196,11 +2181,9 @@ h3,h4
     :top -0.2em
 
 #aspect_stream_container
-  :background
-    :color #fff
-  :-webkit-box-shadow 0 1px 3px #999
   :padding 1em
-  :z-index 40
+  :border
+    :left 1px solid lighten($blue, 25%) 
 
 #share_with
   :min-width 400px

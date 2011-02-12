@@ -90,7 +90,7 @@ var Stream = {
     });
 
     $(".stream").find(".delete").live('ajax:success', function(data, html, xhr) {
-      $(this).parents(".status_message").fadeOut(150);
+      $(this).parents(".stream_element").remove();
     });
   },
 

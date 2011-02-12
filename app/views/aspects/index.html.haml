@@ -25,7 +25,7 @@
     = render "aspects/new_aspect"
 
 
-.span-15.prepend-5
+.span-15.prepend-4{:style => 'z-index:30;'}
   = render 'aspects/no_contacts_message', :aspect => @aspect, :contact_count => @contacts.count
 
   #aspect_stream_container
@@ -35,7 +35,7 @@
       :posts => @posts,
       :fakes => @fakes
 
-.span-4.last
+.span-5.last
   - if @notification_count > 0 || @request_count > 0
     #new_requests
       - if @request_count > 0
