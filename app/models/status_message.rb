@@ -97,6 +97,14 @@ class StatusMessage < Post
     return truncated
   end
 
+  def subscribers(user)
+    if self.private
+      self.mentioned_people
+    else
+      super(user)
+    end
+  end
+
   protected
 
   def message_or_photos_present?

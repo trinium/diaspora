@@ -72,6 +72,20 @@ describe StatusMessagesController do
       old_status_message.reload.message.should == 'hello'
     end
 
+    context 'with private mention' do
+      before do
+        @private_mention_hash = {:status_message => {
+          :message => "@{#{@user2.person.name}; #{@user2.person.diaspora_handle}} hey there private stuff.",
+          :private => "true",
+        }, :aspect_ids => [@aspect1.id.to_s]}
+      end
+
+      it 'creates a private status message' do
+        post :create, @private_mention_hash
+        StatusMessage.last.private.should be_true
+      end
+    end
+
     context 'with photos' do
       before do
         fixture_filename  = 'button.png'

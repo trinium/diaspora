@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110211021926) do
+ActiveRecord::Schema.define(:version => 20110212020437) do
 
   create_table "aspect_memberships", :force => true do |t|
     t.integer  "aspect_id",  :null => false
@@ -373,6 +373,7 @@ ActiveRecord::Schema.define(:version => 20110211021926) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "mongo_id"
+    t.boolean  "private",           :default => false, :null => false
   end
 
   add_index "posts", ["guid"], :name => "index_posts_on_guid"

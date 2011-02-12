@@ -10,6 +10,11 @@ describe Post do
     @aspect = @user.aspects.create(:name => "winners")
   end
 
+  it 'validates that its not public and private at the same time' do
+    sm = @user.build_post(:status_message, :message => "hey", :private => true, :public => true)
+    sm.should_not be_valid
+  end
+
   describe 'deletion' do
     it 'should delete a posts comments on delete' do
       post = Factory.create(:status_message, :person => @user.person)

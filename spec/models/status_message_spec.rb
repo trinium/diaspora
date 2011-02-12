@@ -10,6 +10,12 @@ describe StatusMessage do
   before do
     @user = alice
     @aspect = @user.aspects.first
+
+    @user2 = bob
+    @aspect2 = @user2.aspects.first
+
+    @user3 = eve
+    @aspect3 = @user3.aspects.first
   end
 
   describe '.before_create' do
@@ -28,6 +34,16 @@ describe StatusMessage do
       post.person.should == person
     end
   end
+
+  it 'validates that if sm is private that the photos are private' do
+
+  end
+
+  it 'validates that if sm is public that the photos are public too' do
+
+  end
+
+
   it "should have either a message or at least one photo" do
     n = Factory.build(:status_message, :message => nil)
     n.valid?.should be_false
@@ -60,6 +76,20 @@ describe StatusMessage do
     status = Factory.build(:status_message, :message => message)
 
     status.should_not be_valid
+  end
+
+  describe '#subscribers' do
+    it 'returns the mentioned user if the message is private' do
+      sm = @user2.post(:status_message, :message => "@{#{@user3.name}; #{@user3.diaspora_handle}}",
+                          :private => true, :to => @aspect2.id )
+      sm.subscribers(@user2).should == [@user3.person]
+    end
+
+    it 'returns regular subscribers' do
+      sm = @user2.post(:status_message, :message => "@{#{@user3.name}; #{@user3.diaspora_handle}}",
+                          :private => false, :to => @aspect2.id )
+      sm.subscribers(@user2).to_set.should == [@user.person, @user3.person].to_set
+    end
   end
 
   describe 'mentions' do

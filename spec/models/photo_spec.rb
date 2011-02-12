@@ -17,6 +17,16 @@ describe Photo do
     @photo2 = @user.post(:photo, :user_file=> File.open(@fixture_name), :to => @aspect.id)
   end
 
+  describe 'before save' do
+    it 'validates that if sm is private that the photos are private' do
+      pending   
+    end
+
+    it 'validates that if sm is public that the photos are public too' do
+      pending
+    end
+  end
+
   describe "protected attributes" do
     it "doesn't allow mass assignment of person" do
       @photo.save!

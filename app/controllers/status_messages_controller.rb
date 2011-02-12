@@ -15,8 +15,12 @@ class StatusMessagesController < ApplicationController
     photos = Photo.where(:id => [*params[:photos]], :diaspora_handle => current_user.person.diaspora_handle)
 
     public_flag = params[:status_message][:public]
+    private_flag = params[:status_message][:private]
     public_flag.to_s.match(/(true)|(on)/) ? public_flag = true : public_flag = false
+    private_flag.to_s.match(/(true)|(on)/) ? private_flag = true : private_flag = false
+
     params[:status_message][:public] = public_flag
+    params[:status_message][:private] = private_flag
 
     @status_message = current_user.build_post(:status_message, params[:status_message])
     aspects = current_user.aspects_from_ids(params[:aspect_ids])

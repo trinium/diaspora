@@ -13,7 +13,7 @@ class Post < ActiveRecord::Base
   xml_attr :diaspora_handle
   xml_attr :public
   xml_attr :created_at
-
+  
   has_many :comments, :order => 'created_at ASC', :dependent => :destroy
   has_many :post_visibilities
   has_many :aspects, :through => :post_visibilities
@@ -24,6 +24,8 @@ class Post < ActiveRecord::Base
   @@per_page = 10
 
   before_destroy :propogate_retraction
+
+  validate :not_public_and_private
 
   def user_refs
     self.post_visibilities.count
@@ -41,6 +43,7 @@ class Post < ActiveRecord::Base
       new_post.aspects << Aspect.find_by_id(aspect_id)
     end if params[:aspect_ids]
     new_post.public = params[:public] if params[:public]
+    new_post.private = params[:private] if params[:private]
     new_post.pending = params[:pending] if params[:pending]
     new_post.diaspora_handle = new_post.person.diaspora_handle
     new_post
@@ -95,6 +98,12 @@ class Post < ActiveRecord::Base
   end
 
   protected
+  def not_public_and_private
+    if self.public && self.private
+      errors[:base] << 'Post cannot be both public and private'
+    end
+  end
+
   def propogate_retraction
     self.person.owner.retract(self) if self.person.owner
   end
