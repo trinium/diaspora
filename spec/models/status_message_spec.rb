@@ -35,15 +35,6 @@ describe StatusMessage do
     end
   end
 
-  it 'validates that if sm is private that the photos are private' do
-
-  end
-
-  it 'validates that if sm is public that the photos are public too' do
-
-  end
-
-
   it "should have either a message or at least one photo" do
     n = Factory.build(:status_message, :message => nil)
     n.valid?.should be_false
