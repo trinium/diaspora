@@ -25,7 +25,7 @@ class Post < ActiveRecord::Base
 
   before_destroy :propogate_retraction
 
-  validate :not_public_and_private
+  #validate :not_public_and_private
 
   def user_refs
     self.post_visibilities.count

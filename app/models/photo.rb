@@ -18,6 +18,7 @@ class Photo < Post
   validate :ownership_of_status_message
 
   before_destroy :ensure_user_picture
+  before_validation :set_flag
 
   def ownership_of_status_message
     message = StatusMessage.find_by_id(self.status_message_id)
@@ -97,4 +98,12 @@ class Photo < Post
   scope :on_statuses, lambda { |post_ids|
     where(:status_message_id => post_ids)
   }
+
+  protected
+  def set_flag
+    if self.status_message
+      self.private = self.status_message.private
+      self.public = self.status_message.public
+    end
+  end
 end

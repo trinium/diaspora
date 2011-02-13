@@ -17,16 +17,6 @@ describe Photo do
     @photo2 = @user.post(:photo, :user_file=> File.open(@fixture_name), :to => @aspect.id)
   end
 
-  describe 'before save' do
-    it 'validates that if sm is private that the photos are private' do
-      pending   
-    end
-
-    it 'validates that if sm is public that the photos are public too' do
-      pending
-    end
-  end
-
   describe "protected attributes" do
     it "doesn't allow mass assignment of person" do
       @photo.save!
@@ -162,6 +152,26 @@ describe Photo do
   context "commenting" do
     it "accepts comments if there is no parent status message" do
       proc{ @user.comment("big willy style", :on => @photo) }.should change(@photo.comments, :count).by(1)
+    end
+  end
+
+  context 'before saving' do
+    it 'sets the private flag to be that of the parent status message' do
+      status_message = @user.post(:status_message, :message => "hello there", :private => true, :to => @aspect.id)
+      @photo2.private = false
+      pp @photo2.valid?
+      status_message.photos << @photo2
+      pp @photo2.save!
+      @photo2.reload.private.should be_true
+    end
+
+    it 'sets the public flag to be that of the parent status message' do
+      status_message = @user.post(:status_message, :message => "hello there", :public => true, :to => @aspect.id)
+      @photo2.public = false
+      pp @photo2.valid?
+      status_message.photos << @photo2
+      pp @photo2.reload.valid?
+      @photo2.reload.public.should be_true
     end
   end
 
