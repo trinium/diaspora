@@ -12,6 +12,7 @@ class Post < ActiveRecord::Base
 
   xml_attr :diaspora_handle
   xml_attr :public
+  xml_attr :private
   xml_attr :created_at
   
   has_many :comments, :order => 'created_at ASC', :dependent => :destroy
@@ -25,7 +26,7 @@ class Post < ActiveRecord::Base
 
   before_destroy :propogate_retraction
 
-  #validate :not_public_and_private
+  validate :not_public_and_private
 
   def user_refs
     self.post_visibilities.count

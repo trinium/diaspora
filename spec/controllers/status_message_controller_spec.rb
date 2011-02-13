@@ -84,6 +84,7 @@ describe StatusMessagesController do
         post :create, @private_mention_hash
         StatusMessage.last.private.should be_true
       end
+
     end
 
     context 'with photos' do

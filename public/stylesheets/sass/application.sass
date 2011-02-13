@@ -4,6 +4,8 @@
 
 
 $blue: #3F8FBA
+$slate: #E3E4E8
+$orange: #FCBF6B
 
 body
   :padding 2em
@@ -542,7 +544,7 @@ ul.show_comments
     :top 0.5em
   :padding 0
   :background
-    :color #F0F4F5
+    :color lighten($blue, 47%)
 
   textarea
     :width 100%
@@ -2426,3 +2428,10 @@ ul.show_comments
 .mention
   :font
     :weight bold
+
+.private
+  :border
+    :left 3px solid $orange
+    :right 3px solid $orange
+  :background
+    :color rgb(250,250,250)

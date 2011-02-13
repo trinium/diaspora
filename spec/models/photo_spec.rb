@@ -9,6 +9,8 @@ describe Photo do
     @user = alice
     @aspect = @user.aspects.first
 
+    @user2 = bob
+
     @fixture_filename  = 'button.png'
     @fixture_name      = File.join(File.dirname(__FILE__), '..', 'fixtures', @fixture_filename)
     @fail_fixture_name = File.join(File.dirname(__FILE__), '..', 'fixtures', 'msg.xml')
@@ -159,19 +161,28 @@ describe Photo do
     it 'sets the private flag to be that of the parent status message' do
       status_message = @user.post(:status_message, :message => "hello there", :private => true, :to => @aspect.id)
       @photo2.private = false
-      pp @photo2.valid?
       status_message.photos << @photo2
-      @photo2.save!
       @photo2.reload.private.should be_true
     end
 
     it 'sets the public flag to be that of the parent status message' do
       status_message = @user.post(:status_message, :message => "hello there", :public => true, :to => @aspect.id)
       @photo2.public = false
-      pp @photo2.valid?
       status_message.photos << @photo2
-      pp @photo2.reload.valid?
       @photo2.reload.public.should be_true
+    end
+  end
+
+  context 'mentions' do
+    it 'calls the mentioned people from the status message' do
+      message = "@{#{@user2.name}; #{@user2.diaspora_handle}} I miss you"
+      status_message = @user.post(:status_message, :message => message, :public => true, :to => @aspect.id)
+      status_message.photos << @photo2
+      @photo2.mentioned_people.should == [@user2.person]
+    end
+
+    it 'returns nothing if it has no status message' do
+      @photo2.mentioned_people.should == []
     end
   end
 

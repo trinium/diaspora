@@ -8,10 +8,12 @@ describe User do
 
   let!(:user) { alice }
   let!(:user2) { eve }
+  let!(:user3) { bob }
 
   let!(:aspect) { user.aspects.first }
   let!(:aspect1) { user.aspects.create(:name => 'other') }
   let!(:aspect2) { user2.aspects.first }
+  let!(:aspect3) { user3.aspects.create(:name => 'other') }
 
   let!(:service1) { Factory(:service, :type => 'Services::Twitter' , :user => user) }
   let!(:service2) { Factory(:service, :type => 'Services::Facebook', :user => user) }
@@ -41,6 +43,15 @@ describe User do
     it 'sockets the post to the poster' do
       @post.should_receive(:socket_to_user).with(user, anything)
       user.add_to_streams(@post, @aspects)
+    end
+
+    it 'adds private messages only to the aspect the mentioned people is in' do
+      message = "@{#{user.person.name}; #{user.person.diaspora_handle}} yo"
+      post2 = user3.build_post(:status_message, :private => true, :message => message, :to => user3.aspects.map{|a| a.id})
+      post2.save
+      user3.add_to_streams(post2, user3.aspects)
+      user3.aspects(true).all[0].posts.count.should == 1
+      user3.aspects(true).all[1].posts.count.should == 0
     end
   end
 

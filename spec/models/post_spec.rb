@@ -33,6 +33,13 @@ describe Post do
       xml.include?("person_id").should be false
       xml.include?(@user.person.diaspora_handle).should be true
     end
+
+    it 'serializes the private flag' do
+      post = @user.post :status_message, :message => "hello", :to => @aspect.id
+      xml = post.to_diaspora_xml
+
+      xml.should include "private"
+    end
   end
 
   describe '#mutable?' do

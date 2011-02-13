@@ -133,8 +133,12 @@ class User < ActiveRecord::Base
 
   def add_to_streams(post, aspects_to_insert)
     post.socket_to_user(self, :aspect_ids => aspects_to_insert.map{|x| x.id}) if post.respond_to? :socket_to_user
+
+    mentioned_people_ids = post.mentioned_people.map{|p| p.id} if post.respond_to? :mentioned_people
     aspects_to_insert.each do |aspect|
-      aspect.posts << post
+      unless post.private && (aspect.contacts.where(:person_id => mentioned_people_ids)).empty?
+        aspect.posts << post
+      end
     end
   end
 

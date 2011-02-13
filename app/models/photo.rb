@@ -18,7 +18,7 @@ class Photo < Post
   validate :ownership_of_status_message
 
   before_destroy :ensure_user_picture
-  before_save :set_flag
+  before_validation :set_flag
 
   def ownership_of_status_message
     message = StatusMessage.find_by_id(self.status_message_id)
@@ -26,6 +26,14 @@ class Photo < Post
       self.diaspora_handle == message.diaspora_handle
     else
       true
+    end
+  end
+
+  def mentioned_people
+    if self.status_message
+      self.status_message.mentioned_people
+    else
+      []
     end
   end
 
