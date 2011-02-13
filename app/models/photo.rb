@@ -18,7 +18,7 @@ class Photo < Post
   validate :ownership_of_status_message
 
   before_destroy :ensure_user_picture
-  before_validation :set_flag
+  before_save :set_flag
 
   def ownership_of_status_message
     message = StatusMessage.find_by_id(self.status_message_id)
@@ -101,9 +101,10 @@ class Photo < Post
 
   protected
   def set_flag
-    if self.status_message
-      self.private = self.status_message.private
-      self.public = self.status_message.public
+    if message = self.status_message
+      self.private = message.private
+      self.public = message.public
     end
+    true
   end
 end

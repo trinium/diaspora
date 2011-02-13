@@ -161,7 +161,7 @@ describe Photo do
       @photo2.private = false
       pp @photo2.valid?
       status_message.photos << @photo2
-      pp @photo2.save!
+      @photo2.save!
       @photo2.reload.private.should be_true
     end
 
