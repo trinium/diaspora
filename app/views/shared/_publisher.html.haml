@@ -40,9 +40,11 @@
           #fileInfo
           = image_tag 'ajax-loader.gif', :class => 'hidden', :id => "publisher_spinner"
           = status.submit t('.share'), :disable_with => t('.posting'), :class => 'button'
-
+          
+        .private_toggle
           %p.checkbox_select
-            = status.check_box( :private, {:title => "Private"}, true, false)
+            = status.label( :private, "Private Message")
+            = status.check_box( :private, {:title => "Private Message"}, true, false)
 
         - if aspect == :all
           .public_toggle
