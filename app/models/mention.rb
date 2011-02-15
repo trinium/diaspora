@@ -14,12 +14,18 @@ class Mention < ActiveRecord::Base
 
   def notify_recipient
     Rails.logger.info "event=mention_sent id=#{self.id} to=#{person.diaspora_handle} from=#{post.person.diaspora_handle}"
-    Notification.notify(person.owner, self, post.person) unless person.remote?
+    Notification.notify(person.owner, self, post.person) unless person.remote? 
   end
 
 
   def notification_type(*args)
-    'mentioned'
+    if not self.post.private
+      'mentioned'
+    elsif self.post.private_recipients.include? self.person
+      'private_message'
+    else
+      nil
+    end
   end
 
   def delete_notification

@@ -15,6 +15,11 @@ describe Post do
     sm.should_not be_valid
   end
 
+  it 'validates that its has at least one mentioned person if its private' do
+    sm = @user.build_post(:status_message, :message => "hey", :private => true)
+    sm.should_not be_valid
+  end
+
   describe 'deletion' do
     it 'should delete a posts comments on delete' do
       post = Factory.create(:status_message, :person => @user.person)

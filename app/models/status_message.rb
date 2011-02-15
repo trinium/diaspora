@@ -68,6 +68,12 @@ class StatusMessage < Post
     end
   end
 
+  def private_recipients
+    regex = /@\{([^;]+); ([^\}]+)\}/
+    match = self.raw_message.match(regex)
+    Person.where(:diaspora_handle => match[2] )
+  end
+
   def mentioned_people_from_string
     regex = /@\{([^;]+); ([^\}]+)\}/
     identifiers = self.raw_message.scan(regex).map do |match|
@@ -99,7 +105,7 @@ class StatusMessage < Post
 
   def subscribers(user)
     if self.private
-      self.mentioned_people
+      self.private_recipients
     else
       super(user)
     end

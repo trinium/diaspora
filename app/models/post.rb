@@ -27,6 +27,7 @@ class Post < ActiveRecord::Base
   before_destroy :propogate_retraction
 
   validate :not_public_and_private
+  validate :has_recipients_if_private
 
   def user_refs
     self.post_visibilities.count
@@ -107,6 +108,12 @@ class Post < ActiveRecord::Base
 
   def propogate_retraction
     self.person.owner.retract(self) if self.person.owner
+  end
+  
+  def has_recipients_if_private
+    if self.private && self.private_recipients == []
+      errors[:base] << 'Private posts must have recipients'
+    end
   end
 end
 

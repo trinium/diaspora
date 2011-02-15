@@ -70,8 +70,8 @@ describe StatusMessage do
   end
 
   describe '#subscribers' do
-    it 'returns the mentioned user if the message is private' do
-      sm = @user2.post(:status_message, :message => "@{#{@user3.name}; #{@user3.diaspora_handle}}",
+    it 'returns the first mentioned user if the message is private' do
+      sm = @user2.post(:status_message, :message => "@{#{@user3.name}; #{@user3.diaspora_handle}} I can't believe @{#{@user.name}; #{@user.diaspora_handle}}",
                           :private => true, :to => @aspect2.id )
       sm.subscribers(@user2).should == [@user3.person]
     end
@@ -146,10 +146,13 @@ STR
     end
     describe '#create_mentions' do
 
-      it 'creates a mention for everyone mentioned in the message' do
+      before do
         @sm.should_receive(:mentioned_people_from_string).and_return(@people)
         @sm.mentions.delete_all
         @sm.create_mentions
+      end
+
+      it 'creates a mentions for everyone mentioned' do
         @sm.mentions(true).map{|m| m.person}.to_set.should == @people.to_set
       end
     end

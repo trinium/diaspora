@@ -25,7 +25,9 @@ class StatusMessagesController < ApplicationController
     @status_message = current_user.build_post(:status_message, params[:status_message])
     aspects = current_user.aspects_from_ids(params[:aspect_ids])
 
-    if @status_message.save
+    @status_message.save
+
+    if @status_message.valid?
       current_user.add_to_streams(@status_message, aspects)
       current_user.dispatch_post(@status_message, :url => post_url(@status_message))
       if !photos.empty?
@@ -59,7 +61,8 @@ class StatusMessagesController < ApplicationController
       end
     else
       respond_to do |format|
-        format.js { render :status => 406 }
+        format.js { render :text => @status_message.errors.full_messages,
+                           :status => 403 }
       end
     end
   end

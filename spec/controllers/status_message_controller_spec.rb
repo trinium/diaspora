@@ -85,6 +85,13 @@ describe StatusMessagesController do
         StatusMessage.last.private.should be_true
       end
 
+      it 'retuns the error from the post' do
+        @private_mention_hash[:status_message][:message] = "No one mentioned here"
+        @private_mention_hash[:format] = 'js'
+        post :create, @private_mention_hash 
+        response.code.should == '403'
+        response.body.include?("Private posts must have mentions").should be true
+      end
     end
 
     context 'with photos' do
