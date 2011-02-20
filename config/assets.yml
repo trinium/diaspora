@@ -63,4 +63,6 @@ stylesheets:
     - public/stylesheets/vendor/facebox.css
     - public/stylesheets/vendor/fileuploader.css
     - public/stylesheets/vendor/tipsy.css
+  rtl:
+    - public/stylesheets/rtl.css
  

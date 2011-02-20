@@ -42,3 +42,4 @@ fallbacks:
   es-CL: [:es]
   gl: [:gl-ES]
   zh: [:zh-CN, :zh-TW]
+rtl: [:ar, :he]
