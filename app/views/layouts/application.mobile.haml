@@ -19,7 +19,7 @@
     = csrf_meta_tag
     
     - if RTL_LANGUAGES.include? I18n.locale
-      = stylesheet_link_tag "rtl", :media => 'all'
+      = include_stylesheets :rtl, :media => 'all'
     
     :javascript
       $(document).ready(Mobile.initialize);
