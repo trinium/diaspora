@@ -169,7 +169,7 @@ header
       :left 30px
       :right 5px
     :margin 0
-      :top -6px
+      :top -5px
       :right -5px
 
     :position absolute
@@ -206,7 +206,7 @@ header
 
     &.active
       :margin
-        :top -3px
+        :top -4px
         :right -6px
       :background
         :color #000
@@ -241,7 +241,7 @@ header
     :font
       :family 'arial', 'helvetica', sans-serif
     :padding 10px 14px
-      :right 75px
+      :right 35px
       :left 0
     :min-height 50px
     :border
@@ -835,6 +835,7 @@ label
     form
       textarea
         :height 18px !important
+        :width 500px
 
   form
     :position relative
@@ -852,7 +853,7 @@ label
 
   input[type='text'],
   textarea
-    :width 415px
+    :width 400px
     :margin 0
 
   textarea
@@ -1025,19 +1026,16 @@ label
 ul.aspect_contacts
   :display none
   :margin 0
+    :left 28px
   :padding 0
-    :left 6px
-
-  a.contact_name
-    :padding
-      :left 40px
+    :left 0px
 
   img.avatar
     :position absolute
     :width 16px
     :height 16px
-    :top 4px
-    :left 6px
+    :top 2px
+    :left -18px
 
 ul#aspect_nav
   :padding 0
@@ -1055,9 +1053,7 @@ ul#aspect_nav
     :width 100%
     :height 100%
     :color #888
-    :padding 3px 5px
-    :border
-      :bottom 1px solid #eee
+    :padding 2px 3px
 
   li:hover
     a.aspect_selector,
@@ -1071,7 +1067,7 @@ ul#aspect_nav
 
   a.home_selector
     :margin
-      :bottom 12px
+      :bottom 6px
 
   a.add_aspect_button
     :color #bbb
@@ -1085,8 +1081,8 @@ ul#aspect_nav
   a.edit
     :display none
     :position absolute
-    :right -8px
-    :top 4px
+    :right -4px
+    :top 2px
     :font
       :size smaller
     :padding 1px 4px
@@ -1094,6 +1090,8 @@ ul#aspect_nav
       :color #eee
     :color #aaa
 
+    :-webkit-border-radius 3px
+    :-moz-border-radius 3px
     :border-radius 3px
 
     &:hover
@@ -1124,7 +1122,7 @@ ul#aspect_nav
   li
     a.contact_name
       :padding
-        :left !important 40px
+        :left !important 0px
 
 #global_search
   :display inline
@@ -1135,7 +1133,7 @@ ul#aspect_nav
 
     input
       :display inline
-      :background-color #ccc
+      :background-color #ddd
       :border
         :top 1px solid #111
 
@@ -1358,7 +1356,11 @@ ul#settings_nav
 
 .section
   :margin
-    :bottom 24px
+    :bottom 12px
+  :padding
+    :bottom 12px 
+  :border
+    :bottom 1px solid #ccc
 
 
 .floating.empty_message
@@ -2424,3 +2426,4 @@ ul.show_comments
   :background
     :color #eee
   :border 1px solid #ccc
+

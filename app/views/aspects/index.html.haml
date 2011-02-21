@@ -7,21 +7,9 @@
   = include_javascripts :home
 
 .span-4.append-1
-  - if @notification_count > 0 || @request_count > 0
-    #new_requests
-      - if @request_count > 0
-        %h4
-          = new_request_link(@request_count)
-
-    #new_notifications
-      - if @notification_count > 0
-        = image_tag 'icons/mail_big.png', :height => 20, :width => 20, :style=>"margin-top:3px;"
-        %h4
-          = new_notification_link(@notification_count)
-
   = render 'aspects/aspect_listings', :aspects => @aspects, :contacts => @contacts
 
-.span-14.append-1
+.span-13.append-1
   %h3{:style => 'margin-bottom:0;'}
     Recent Activity
 
@@ -34,7 +22,20 @@
       :posts => @posts,
       :fakes => @fakes
 
-.span-4.last
+.span-5.last
+  - if @notification_count > 0 || @request_count > 0
+    .section
+      #new_requests
+        - if @request_count > 0
+          %h4
+            = new_request_link(@request_count)
+
+      #new_notifications
+        - if @notification_count > 0
+          = image_tag 'icons/mail_big.png', :height => 20, :width => 20, :style=>"margin-top:3px;"
+          %h4
+            = new_notification_link(@notification_count)
+
   .section
     %h4= t('shared.invitations.invite_your_friends')
     = render "shared/invitations", :invites => @invites
